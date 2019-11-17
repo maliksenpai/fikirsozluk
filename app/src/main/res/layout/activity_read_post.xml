@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.Activities.ReadPost">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/readpostlist"
+            android:layout_height="366dp" tools:listitem="@layout/postreadlist">
+    </androidx.recyclerview.widget.RecyclerView>
+    <EditText
+            android:layout_width="278dp"
+            android:layout_height="89dp"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:layout_marginTop="300dp"
+            android:layout_below="@+id/readpostlist"
+            android:ems="10"
+            android:fillViewport="true"
+            android:isScrollContainer="false"
+            android:id="@+id/readposttext"/>
+    <ImageButton
+            android:layout_width="46dp"
+            android:layout_height="44dp" app:srcCompat="@android:drawable/ic_media_play"
+            android:layout_toRightOf="@+id/readposttext"
+            android:layout_marginLeft="29dp"
+            android:layout_below="@+id/readpostlist"
+            android:layout_marginTop="30dp"
+            android:background="#000"
+            android:id="@+id/readpostbutton"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

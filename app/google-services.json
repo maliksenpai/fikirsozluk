@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "823457327457",
+    "firebase_url": "https://basket-9ec2d.firebaseio.com",
+    "project_id": "basket-9ec2d",
+    "storage_bucket": "basket-9ec2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823457327457:android:e0014027ef851cd6",
+        "android_client_info": {
+          "package_name": "com.basket.basketserver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823457327457-vth9si3hksop2ss0rbt35fnsf8uahgku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVVJXN-jLgM9Tqllmmcv-1NvO2WlXgfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823457327457-vth9si3hksop2ss0rbt35fnsf8uahgku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823457327457:android:9ec58f4b11d4923f",
+        "android_client_info": {
+          "package_name": "com.basket.baskettt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823457327457-vth9si3hksop2ss0rbt35fnsf8uahgku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVVJXN-jLgM9Tqllmmcv-1NvO2WlXgfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823457327457-vth9si3hksop2ss0rbt35fnsf8uahgku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823457327457:android:e461a1750c736cab4a7d20",
+        "android_client_info": {
+          "package_name": "com.fikir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823457327457-vth9si3hksop2ss0rbt35fnsf8uahgku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVVJXN-jLgM9Tqllmmcv-1NvO2WlXgfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823457327457-vth9si3hksop2ss0rbt35fnsf8uahgku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
