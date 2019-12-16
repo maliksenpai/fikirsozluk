@@ -6,12 +6,22 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
   <TextView
-      android:id="@+id/textView1"
+      android:id="@+id/postlisttext"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:textColor="#000"
+      android:textSize="18dp"
       tools:text="@tools:sample/lorem" />
   <TextView
-      android:id="@+id/textView2"
+          android:text="TextView"
+          android:layout_width="match_parent"
+          android:textColor="#000"
+          android:textSize="10dp"
+          android:layout_height="wrap_content" android:id="@+id/postlistnick"/>
+  <TextView
+      android:id="@+id/postlisttime"
+      android:textColor="#000"
+      android:textSize="10dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       tools:text="@tools:sample/lorem" />

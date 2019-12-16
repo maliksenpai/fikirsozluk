@@ -23,7 +23,11 @@ class PostAdapter(val liste:MutableList<String>): RecyclerView.Adapter<PostAdapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.subject.setText(liste[position])
-        holder.subject.setOnClickListener { holder.itemView.context.startActivity(Intent(holder.itemView.context,ReadPost::class.java)) }
+        holder.subject.setOnClickListener {
+            var intent=Intent(holder.itemView.context,ReadPost::class.java)
+            intent.putExtra("subject",liste[position])
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
