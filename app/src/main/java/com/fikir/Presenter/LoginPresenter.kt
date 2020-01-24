@@ -6,6 +6,7 @@ import com.fikir.Model.Firebase.LoginAcc
 import com.fikir.UI.Activities.Login
 import com.fikir.UI.Activities.Main
 import com.fikir.UI.Activities.Register
+import kotlin.math.log
 
 class LoginPresenter {
     var login: Login = Login()
@@ -29,12 +30,15 @@ class LoginPresenter {
             login.shortmail()
         }
         else{
-            LoginAcc().login(mail,password)
+            LoginAcc().login(mail,password,login)
         }
     }
 
     fun logincomplete(){
-        login?.applicationContext?.startActivity(Intent(login.applicationContext, Main::class.java))
+        var intent:Intent=Intent(login.applicationContext,Main::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        login?.startActivity(intent)
+        //login?.applicationContext?.startActivity(Intent(login, Main::class.java))
         Log.d("gelenlogin","girdi")
     }
 

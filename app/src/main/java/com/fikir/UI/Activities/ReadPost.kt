@@ -41,6 +41,7 @@ class ReadPost : AppCompatActivity() {
             , zaman.toString()
             ,FirebaseAuth.getInstance().currentUser?.email.toString()
             ,subject)
+            ReadList().postlist(subject,findViewById<RecyclerView>(R.id.readpostlist),this)
         }
     }
 

@@ -1,20 +1,13 @@
 package com.fikir.Presenter
 
 import android.content.Intent
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.fikir.Model.Firebase.NicknameAcc
-import com.fikir.Model.Firebase.Post
+import com.fikir.Model.Firebase.MainMenu
 import com.fikir.UI.Activities.Login
 import com.fikir.UI.Activities.Main
 import com.fikir.UI.Fragments.NewPostFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
-import java.time.LocalDateTime
-import java.util.*
 
 class MainPresenter {
      lateinit var main: Main
@@ -39,6 +32,6 @@ class MainPresenter {
         main.showpostfragmentmain()
     }
     fun postlist(recyclerView: RecyclerView){
-        Post().listsubject(recyclerView,main)
+        MainMenu().listsubject(recyclerView,main)
     }
 }

@@ -25,6 +25,10 @@ class ReadAdapter(val liste:MutableList<ReadModule>): RecyclerView.Adapter<ReadA
         holder.time.setText(liste[position].time)
     }
 
+    fun cleardata(){
+        liste.clear()
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nick=itemView.findViewById<TextView>(R.id.postlistnick)
         val text=itemView.findViewById<TextView>(R.id.postlisttext)

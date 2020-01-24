@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UI.Activities.Main">
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/anasayfa" android:visibility="visible">
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="398dp"
-                android:layout_height="660dp" tools:listitem="@layout/recycler_view_item" tools:itemCount="15"
-                android:id="@+id/mainlist"/>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="70dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/colorPrimary"
-                android:clickable="true" app:srcCompat="@android:drawable/ic_menu_send"
-                android:id="@+id/mainaddpost"/>
-    </RelativeLayout>
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:visibility="invisible"
-            android:layout_height="match_parent" android:id="@+id/profil">
+        tools:context=".UI.Activities.SearchProfile">
         <TextView
                 android:layout_width="267dp"
                 android:layout_height="wrap_content" android:id="@+id/profilnick"
@@ -84,33 +61,21 @@
                 android:layout_below="@+id/profiltakipedilen"
                 android:layout_marginLeft="270dp"
                 android:layout_marginTop="20dp"/>
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:visibility="invisible"
-                    android:layout_height="match_parent" android:id="@+id/arama">
-        <EditText
-                android:layout_width="347dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Profil Ismi"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:ems="10"
-                android:id="@+id/aramatext"/>
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                tools:listitem="@layout/recycler_view_item"
-                android:layout_below="@+id/aramatext"
-                android:id="@+id/aramalist"
-                android:layout_marginTop="20dp"
-                android:layout_height="match_parent"/>
-    </RelativeLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="81dp"
-            android:layout_marginTop="450dp"
-            android:background="#fff"
-            android:id="@+id/mainmenubnavigation"
-            app:menu="@menu/mainmenu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-</FrameLayout>
+    <Button
+            android:text="Takip Et"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/profiltakip"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/profiltakipedilensayac"
+            android:layout_toRightOf="@+id/profilmesaj"
+            android:layout_marginLeft="40dp"/>
+    <Button
+            android:text="Mesaj"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/profilmesaj"
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="50dp"
+            android:layout_below="@+id/profiltakipedilensayac"/>
+</RelativeLayout>

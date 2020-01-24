@@ -1,12 +1,22 @@
 package com.fikir.UI.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.RecoverySystem
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.RelativeLayout
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import com.fikir.Model.Firebase.MainMenu
+import com.fikir.Model.Firebase.SearchName
 import com.fikir.Presenter.MainPresenter
 import com.fikir.R
 import com.fikir.UI.Fragments.NewPostFragment
@@ -22,6 +32,7 @@ class Main : AppCompatActivity() {
         val presenter: MainPresenter =MainPresenter()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        val bar=supportActionBar
         presenter.init(this)
         presenter.giris()
         val auth:FirebaseAuth?=FirebaseAuth.getInstance()
@@ -37,20 +48,60 @@ class Main : AppCompatActivity() {
                 R.id.menuanasayfa -> {
                     findViewById<RelativeLayout>(R.id.anasayfa).visibility=View.VISIBLE
                     findViewById<RelativeLayout>(R.id.profil).visibility=View.INVISIBLE
+                    findViewById<RelativeLayout>(R.id.arama).visibility=View.INVISIBLE
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menuprofil -> {
                     findViewById<RelativeLayout>(R.id.anasayfa).visibility=View.INVISIBLE
                     findViewById<RelativeLayout>(R.id.profil).visibility=View.VISIBLE
+                    findViewById<RelativeLayout>(R.id.arama).visibility=View.INVISIBLE
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.menuara -> {
+                    findViewById<RelativeLayout>(R.id.anasayfa).visibility=View.INVISIBLE
+                    findViewById<RelativeLayout>(R.id.profil).visibility=View.INVISIBLE
+                    findViewById<RelativeLayout>(R.id.arama).visibility=View.VISIBLE
                     return@OnNavigationItemSelectedListener true
                 }
             }
             false
         }
         menunavigationmenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        MainMenu().profildetails(this)
+        findViewById<EditText>(R.id.aramatext).addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                SearchName().names(findViewById<RecyclerView>(R.id.aramalist),s.toString(), s.toString().length,this@Main)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+        })
     }
     fun showpostfragmentmain(){
         val fragment:NewPostFragment= NewPostFragment()
         fragment.show(supportFragmentManager,"postfragment")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater=menuInflater
+        inflater.inflate(R.menu.maintop,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.cikis -> {
+                MainMenu().exitaccount()
+                startActivity(Intent(applicationContext,Login::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

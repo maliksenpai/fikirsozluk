@@ -41,7 +41,6 @@ class RegisterPresenter {
             Log.d("gelenler","oldu")
             val RegisterAcc=RegisterAcc()
             RegisterAcc.register(nickname,email,pass1)
-            register.applicationContext.startActivity(Intent(register.applicationContext, Main::class.java))
     }
     }
 }

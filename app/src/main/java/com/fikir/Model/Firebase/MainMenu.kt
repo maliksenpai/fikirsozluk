@@ -3,20 +3,24 @@ package com.fikir.Model.Firebase
 import android.os.AsyncTask
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Adapters.PostAdapter
 import com.fikir.Model.Module.PostModule
 import com.fikir.Model.Singletons.DatabaseSingleton
+import com.fikir.R
 import com.fikir.UI.Activities.Main
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_main2.view.*
 import java.util.*
 
-class Post {
+class MainMenu {
     fun newPost(nick: String, subject: String, text: String) {
         val firebasepost = DatabaseSingleton().getInstance()?.child("postlar")?.push()
         val nickdatabase = DatabaseSingleton().getInstance()?.child("kullanicilar")
@@ -93,5 +97,39 @@ class Post {
             }
         }
         database?.addListenerForSingleValueEvent(listener)
+    }
+    fun profildetails(main:Main){
+        val nickdatabase = DatabaseSingleton().getInstance()?.child("kullanicilar")
+        var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
+        val listener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                p0.children.forEach {
+                    if (mail.equals(it.child("eposta").getValue().toString())) {
+                        Log.d("gelenmain", it.child("nick").getValue().toString());
+                        Log.d("gelenmain",it.key)
+                        var asd=nickdatabase?.child(it.key.toString())?.child("postlar")
+                        val listenerposts = object : ValueEventListener{ //epostasıyla profilini bulduğumuz hesabın içine giriyoruz
+                            override fun onCancelled(p1: DatabaseError) {
+                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            }
+
+                            override fun onDataChange(p1: DataSnapshot) {
+                                main.findViewById<TextView>(R.id.profilnick).setText(it.child("nick").getValue().toString()) //profil ekranına nick yazdırma
+                                main.findViewById<TextView>(R.id.profilpostsayisisayac).setText(p1.childrenCount.toString()) //profil ekranına post sayısını yazar
+                                Log.d("gelenmain", p1.childrenCount.toString())
+                            }
+                        }
+                        asd?.addListenerForSingleValueEvent(listenerposts)
+                    }
+                }
+            }
+        }
+        nickdatabase?.addValueEventListener(listener)
+    }
+    fun exitaccount(){
+        var user=FirebaseAuth.getInstance()
+        user.signOut()
     }
 }

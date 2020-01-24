@@ -1,5 +1,6 @@
 package com.fikir.UI.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -20,7 +21,8 @@ class Register : AppCompatActivity() {
             presenter.register(findViewById<TextInputEditText>(R.id.registernicktext).text.toString(),
                 findViewById<TextInputEditText>(R.id.registermailtext).text.toString(),
                 findViewById<TextInputEditText>(R.id.registerpass1text).text.toString(),
-                findViewById<TextInputEditText>(R.id.registerpass2text).text.toString()) }
+                findViewById<TextInputEditText>(R.id.registerpass2text).text.toString())
+            startActivity(Intent(applicationContext, Main::class.java))}
     }
     fun passdontmatch(){
         findViewById<TextInputLayout>(R.id.registerpass1layout).error="Sifre uyusmuyor"

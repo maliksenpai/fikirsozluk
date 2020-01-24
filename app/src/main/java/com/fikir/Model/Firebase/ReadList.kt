@@ -19,6 +19,7 @@ class ReadList {
     fun postlist(subject:String, recyclerview:RecyclerView, post: ReadPost){
         val firebaseread = DatabaseSingleton().getInstance()?.child("postlar")
         var list:MutableList<ReadModule> = arrayListOf()
+        ReadAdapter(list).cleardata()
         val listener = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 Log.d("gelenpost",p0.getValue().toString())
@@ -69,7 +70,7 @@ class ReadList {
                         postdatabase?.child("zaman")?.setValue(Date())
                         postdatabase?.push()
                         nickdatabase?.child(it.key.toString())?.child("postlar")?.push()?.setValue(PostModule(subject, nickname!!))
-                      //  nickdatabase?.push()
+                        //  nickdatabase?.push()
                     }
                 }
             }

@@ -2,8 +2,6 @@ package com.fikir.Model.Firebase
 
 import android.util.Log
 import android.view.View
-import com.fikir.Presenter.MainPresenter
-import com.fikir.UI.Activities.Main
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -21,7 +19,7 @@ class NicknameAcc {
                     if(mail.equals(it.child("eposta").getValue().toString())){
                         nickname=it.child("nick").getValue().toString()
                         Log.d("gelennick2",nickname)
-                        Post().newPostCheckSubject(nickname,subject,text,context)
+                        MainMenu().newPostCheckSubject(nickname,subject,text,context)
                     }
                 }
             }
