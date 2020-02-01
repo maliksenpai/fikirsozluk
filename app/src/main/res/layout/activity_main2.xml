@@ -42,7 +42,7 @@
                 android:textSize="15dp"
                 android:textColor="#000"
                 android:text="Post Sayısı"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="70dp"/>
         <TextView
                 android:layout_width="wrap_content"
@@ -51,14 +51,14 @@
                 android:textColor="#000"
                 android:layout_below="@+id/profilpostsayisi"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="20dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/profiltakipci"
                 android:textSize="15dp"
-                android:text="Takipci Sayısı"
+                android:text="Takipci"
                 android:textColor="#000"
-                android:layout_marginLeft="150dp"
+                android:layout_marginLeft="140dp"
                 android:layout_marginTop="70dp"/>
         <TextView
                 android:layout_width="wrap_content"
@@ -67,23 +67,30 @@
                 android:textColor="#000"
                 android:layout_below="@id/profiltakipci"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="150dp"/>
+                android:layout_marginLeft="140dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/profiltakipedilen"
                 android:textSize="15dp"
                 android:textColor="#000"
-                android:text="Takipci Edilen Sayısı"
+                android:text="Takip Edilen"
                 android:layout_marginTop="70dp"
-                android:layout_marginLeft="270dp"/>
+                android:layout_marginLeft="260dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/profiltakipedilensayac"
                 android:textSize="15dp"
                 android:textColor="#000"
                 android:layout_below="@+id/profiltakipedilen"
-                android:layout_marginLeft="270dp"
+                android:layout_marginLeft="260dp"
                 android:layout_marginTop="20dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="344dp"
+                android:layout_height="319dp" android:id="@+id/profilelist"
+                android:layout_below="@+id/profiltakipedilen"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="20dp" tools:listitem="@layout/recycler_view_item_1"/>
     </RelativeLayout>
     <RelativeLayout android:layout_width="match_parent"
                     android:visibility="invisible"

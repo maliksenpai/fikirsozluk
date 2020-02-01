@@ -10,7 +10,7 @@
                 android:layout_width="267dp"
                 android:layout_height="wrap_content" android:id="@+id/profilnick"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="0dp"
                 android:textSize="25dp"
                 android:textColor="#000"/>
         <TextView
@@ -19,7 +19,7 @@
                 android:textSize="15dp"
                 android:textColor="#000"
                 android:text="Post Sayısı"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="70dp"/>
         <TextView
                 android:layout_width="wrap_content"
@@ -29,14 +29,14 @@
                 android:layout_below="@+id/profilpostsayisi"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="30dp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/profiltakipci"
-                android:textSize="15dp"
-                android:text="Takipci Sayısı"
-                android:textColor="#000"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="70dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/profiltakipci"
+            android:textSize="15dp"
+            android:text="Takipci"
+            android:textColor="#000"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="70dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/profiltakipcisayac"
@@ -44,22 +44,22 @@
                 android:textColor="#000"
                 android:layout_below="@id/profiltakipci"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="150dp"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/profiltakipedilen"
-                android:textSize="15dp"
-                android:textColor="#000"
-                android:text="Takipci Edilen Sayısı"
-                android:layout_marginTop="70dp"
-                android:layout_marginLeft="270dp"/>
+                android:layout_marginLeft="140dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/profiltakipedilen"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:text="Takip Edilen"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="260dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/profiltakipedilensayac"
                 android:textSize="15dp"
                 android:textColor="#000"
                 android:layout_below="@+id/profiltakipedilen"
-                android:layout_marginLeft="270dp"
+                android:layout_marginLeft="260dp"
                 android:layout_marginTop="20dp"/>
     <Button
             android:text="Takip Et"
@@ -69,13 +69,21 @@
             android:background="@color/colorPrimary"
             android:layout_below="@+id/profiltakipedilensayac"
             android:layout_toRightOf="@+id/profilmesaj"
-            android:layout_marginLeft="40dp"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"/>
     <Button
             android:text="Mesaj"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/profilmesaj"
             android:background="@color/colorPrimary"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
             android:layout_below="@+id/profiltakipedilensayac"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="344dp"
+            android:layout_height="319dp" android:id="@+id/profilelist"
+            android:layout_below="@+id/profilmesaj"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp" tools:listitem="@layout/recycler_view_item_1"/>
 </RelativeLayout>

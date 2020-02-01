@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Adapters.PostAdapter
+import com.fikir.Model.Adapters.ProfileAdapter
+import com.fikir.Model.Adapters.SearchAdapter
 import com.fikir.Model.Module.PostModule
 import com.fikir.Model.Singletons.DatabaseSingleton
 import com.fikir.R
@@ -25,20 +27,20 @@ class MainMenu {
         val firebasepost = DatabaseSingleton().getInstance()?.child("postlar")?.push()
         val nickdatabase = DatabaseSingleton().getInstance()?.child("kullanicilar")
         val listener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-            }
+                override fun onCancelled(p0: DatabaseError) {
+                }
 
-            override fun onDataChange(p0: DataSnapshot) {
-                p0.children.forEach {
-                    if (nick.equals(it.child("nick").getValue().toString())) {
-                        Log.d("gelenread",it.key)
-                        var nickname = it.child("nick").getValue().toString()
-                        Log.d("gelenread", nickname)
-                        nickdatabase?.child(it.key.toString())?.child("postlar")?.push()?.setValue(PostModule(subject, nickname!!))
-                        //  nickdatabase?.push()
+                override fun onDataChange(p0: DataSnapshot) {
+                    p0.children.forEach {
+                        if (nick.equals(it.child("nick").getValue().toString())) {
+                            Log.d("gelenread",it.key)
+                            var nickname = it.child("nick").getValue().toString()
+                            Log.d("gelenread", nickname)
+                            nickdatabase?.child(it.key.toString())?.child("postlar")?.push()?.setValue(PostModule(subject, nickname!!))
+                            //  nickdatabase?.push()
+                        }
                     }
                 }
-            }
 
         }
         nickdatabase?.addListenerForSingleValueEvent(listener)
@@ -99,34 +101,95 @@ class MainMenu {
         database?.addListenerForSingleValueEvent(listener)
     }
     fun profildetails(main:Main){
-        val nickdatabase = DatabaseSingleton().getInstance()?.child("kullanicilar")
+        val firebase = DatabaseSingleton().getInstance()?.child("kullanicilar")
         var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
+        var nickname=""
+        var list:MutableList<String> = arrayListOf()
+        var recyclerView=main.findViewById<RecyclerView>(R.id.profilelist)
         val listener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
             override fun onDataChange(p0: DataSnapshot) {
                 p0.children.forEach {
                     if (mail.equals(it.child("eposta").getValue().toString())) {
-                        Log.d("gelenmain", it.child("nick").getValue().toString());
-                        Log.d("gelenmain",it.key)
-                        var asd=nickdatabase?.child(it.key.toString())?.child("postlar")
-                        val listenerposts = object : ValueEventListener{ //epostasıyla profilini bulduğumuz hesabın içine giriyoruz
+                        main.findViewById<TextView>(R.id.profilnick).setText(it.child("nick").getValue().toString())
+
+                        var postcount=firebase?.child(it.key.toString())?.child("postlar")
+                        val listenerpostcount = object : ValueEventListener { //epostasıyla profilini bulduğumuz hesabın içine giriyoruz
                             override fun onCancelled(p1: DatabaseError) {
-                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                             }
 
                             override fun onDataChange(p1: DataSnapshot) {
-                                main.findViewById<TextView>(R.id.profilnick).setText(it.child("nick").getValue().toString()) //profil ekranına nick yazdırma
                                 main.findViewById<TextView>(R.id.profilpostsayisisayac).setText(p1.childrenCount.toString()) //profil ekranına post sayısını yazar
                                 Log.d("gelenmain", p1.childrenCount.toString())
                             }
                         }
-                        asd?.addListenerForSingleValueEvent(listenerposts)
+
+                        var follower=firebase?.child(it.key.toString())?.child("takipci")
+                        val listenerfollower= object :ValueEventListener{
+                            override fun onCancelled(p2: DatabaseError) {
+
+                            }
+
+                            override fun onDataChange(p2: DataSnapshot) {
+                                main.findViewById<TextView>(R.id.profiltakipcisayac).setText(p2.childrenCount.toString())
+                            }
+
+                        }
+
+                        var followed=firebase?.child(it.key.toString())?.child("takipedilen")
+                        val listenerfollowed = object :ValueEventListener{
+                            override fun onCancelled(p3: DatabaseError) {
+
+                            }
+
+                            override fun onDataChange(p3: DataSnapshot) {
+                                main.findViewById<TextView>(R.id.profiltakipedilensayac).setText(p3.childrenCount.toString())
+                            }
+
+                        }
+
+                        var posts=firebase?.child(it.key.toString())?.child("postlar")
+                        val listenerposts = object :ValueEventListener{
+                            override fun onCancelled(p3: DatabaseError) {
+
+                            }
+
+                            override fun onDataChange(p3: DataSnapshot) {
+                                var i=0
+                                p3.children.forEach {
+                                    Log.d("gelenarama14",it.childrenCount.toString())
+                                    if(it.childrenCount<5){
+                                        if(i<it.childrenCount){
+                                            list.add(it?.child("subject")?.getValue().toString())
+                                            Log.d("gelenarama14","oldu")
+                                        }
+                                    }
+                                    else{
+                                        if(i<5){
+                                            list.add(it?.child("subject")?.getValue().toString())
+                                            Log.d("gelenarama14","oldu")
+                                        }
+                                    }
+                                    i++
+                                }
+                                recyclerView.layoutManager=LinearLayoutManager(main.applicationContext)
+                                recyclerView.adapter= ProfileAdapter(list)
+                            }
+                        }
+
+                        posts?.addListenerForSingleValueEvent(listenerposts)
+                        postcount?.addListenerForSingleValueEvent(listenerpostcount)
+                        follower?.addListenerForSingleValueEvent(listenerfollower)
+                        followed?.addListenerForSingleValueEvent(listenerfollowed)
+
                     }
                 }
             }
         }
-        nickdatabase?.addValueEventListener(listener)
+        firebase?.addValueEventListener(listener)
+
+
     }
     fun exitaccount(){
         var user=FirebaseAuth.getInstance()
