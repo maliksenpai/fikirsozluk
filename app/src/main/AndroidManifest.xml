@@ -9,17 +9,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".UI.Activities.SearchProfile">
+        <activity android:name=".UI.Activities.ChatActivity">
+        </activity>
+        <activity android:name=".UI.Activities.SearchProfileActivity">
         </activity>
         <activity
-                android:name=".UI.Activities.ReadPost"
+                android:name=".UI.Activities.ReadPostActivity"
                 android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
-        <activity android:name=".UI.Activities.Register">
+        <activity android:name=".UI.Activities.RegisterActivity">
         </activity>
-        <activity android:name=".UI.Activities.Login">
+        <activity android:name=".UI.Activities.LoginActivity">
         </activity>
-        <activity android:name=".UI.Activities.Main">
+        <activity android:name=".UI.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

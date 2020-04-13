@@ -3,14 +3,13 @@ package com.fikir.Presenter
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Button
-import androidx.core.content.ContextCompat
 import com.fikir.Model.Firebase.Profile
 import com.fikir.R
-import com.fikir.UI.Activities.SearchProfile
+import com.fikir.UI.Activities.SearchProfileActivity
 
 class SearchPresenter {
     @SuppressLint("ResourceAsColor")
-    fun followbutton(activity:SearchProfile, nick:String){
+    fun followbutton(activity:SearchProfileActivity, nick:String){
         val button = activity.findViewById<Button>(R.id.profiltakip)
         Log.d("gelenarama5", button.text.toString())
         if(button.text.toString()=="Takip Ediliyor"){

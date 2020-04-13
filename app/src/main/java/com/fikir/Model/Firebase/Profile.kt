@@ -1,25 +1,21 @@
 package com.fikir.Model.Firebase
 
+import android.content.Intent
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fikir.Model.Adapters.PostAdapter
-import com.fikir.Model.Adapters.ProfileAdapter
-import com.fikir.Model.Adapters.SearchAdapter
 import com.fikir.Model.Singletons.DatabaseSingleton
 import com.fikir.R
-import com.fikir.UI.Activities.SearchProfile
+import com.fikir.UI.Activities.ChatActivity
+import com.fikir.UI.Activities.SearchProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_search_profile.view.*
-import java.util.*
 
 class Profile {
-    fun update(activity:SearchProfile,nick:String){
+    fun update(activity:SearchProfileActivity, nick:String){
         activity.findViewById<TextView>(R.id.profilnick).setText(nick)
         var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
         val firebase = DatabaseSingleton().getInstance()?.child("kullanicilar")
@@ -113,7 +109,7 @@ class Profile {
         }
         firebase?.addValueEventListener(listener)
     }
-    fun follow(activity:SearchProfile,nick:String){
+    fun follow(activity:SearchProfileActivity, nick:String){
         val firebase = DatabaseSingleton().getInstance()?.child("kullanicilar")
         var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
         var nickname=""
@@ -139,7 +135,7 @@ class Profile {
         }
         firebase?.addListenerForSingleValueEvent(listener)
     }
-    fun unfollow(activity:SearchProfile,nick:String){
+    fun unfollow(activity:SearchProfileActivity, nick:String){
         val firebase = DatabaseSingleton().getInstance()?.child("kullanicilar")
         var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
         var nickname=""
@@ -178,6 +174,30 @@ class Profile {
                     } */
                 }
             }
+        }
+        firebase?.addListenerForSingleValueEvent(listener)
+    }
+    fun message(profile:SearchProfileActivity,nick:String){
+        val firebase = DatabaseSingleton().getInstance()?.child("kullanicilar")
+        var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
+        var nickname=""
+        val listener = object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                p0.children.forEach {
+                    if(mail.equals(it.child("eposta").getValue().toString())){
+                        nickname=it.child("nick").getValue().toString()
+                    }
+                }
+                var intent=Intent(profile.applicationContext,ChatActivity::class.java)
+                intent.putExtra("sendnick",nickname)
+                intent.putExtra("recievenick",nick)
+                profile.startActivity(intent)
+            }
+
         }
         firebase?.addListenerForSingleValueEvent(listener)
     }

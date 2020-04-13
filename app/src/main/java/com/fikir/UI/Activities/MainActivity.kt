@@ -3,34 +3,31 @@ package com.fikir.UI.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.RecoverySystem
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.RelativeLayout
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Firebase.MainMenu
 import com.fikir.Model.Firebase.SearchName
+import com.fikir.Model.Firebase.Status
 import com.fikir.Presenter.MainPresenter
 import com.fikir.R
 import com.fikir.UI.Fragments.NewPostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.internal.NavigationMenuView
 import com.google.firebase.auth.FirebaseAuth
-import java.time.LocalDateTime
 
-class Main : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val presenter: MainPresenter =MainPresenter()
         super.onCreate(savedInstanceState)
+        Status().setonline(FirebaseAuth.getInstance().currentUser?.email.toString())
         setContentView(R.layout.activity_main2)
         val bar=supportActionBar
         presenter.init(this)
@@ -70,7 +67,7 @@ class Main : AppCompatActivity() {
         MainMenu().profildetails(this)
         findViewById<EditText>(R.id.aramatext).addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                SearchName().names(findViewById<RecyclerView>(R.id.aramalist),s.toString(), s.toString().length,this@Main)
+                SearchName().names(findViewById<RecyclerView>(R.id.aramalist),s.toString(), s.toString().length,this@MainActivity)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -97,11 +94,21 @@ class Main : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             R.id.cikis -> {
+                Status().setoffline(FirebaseAuth.getInstance().currentUser?.email.toString())
                 MainMenu().exitaccount()
-                startActivity(Intent(applicationContext,Login::class.java))
+                startActivity(Intent(applicationContext,LoginActivity::class.java))
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    override fun onStop() {
+        Status().setoffline(FirebaseAuth.getInstance().currentUser?.email.toString())
+        super.onStop()
+    }
+
+    override fun onResume() {
+        Status().setonline(FirebaseAuth.getInstance().currentUser?.email.toString())
+        super.onResume()
     }
 }

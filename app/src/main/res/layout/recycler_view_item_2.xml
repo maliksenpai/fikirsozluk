@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
               android:padding="8dp"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content" android:orientation="vertical">
   <TextView
-          android:id="@+id/profilelisttext"
-          android:layout_width="381dp"
-          android:textSize="20dp"
+          android:id="@+id/chatlistnick"
+          android:layout_width="210dp"
           android:textColor="#000"
+          android:layout_height="wrap_content"/>
+  <TextView
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          tools:text="@tools:sample/lorem"/>
+          android:textColor="#111"
+          android:id="@+id/chatlisttext"/>
 </LinearLayout>

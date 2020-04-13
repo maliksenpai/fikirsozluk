@@ -1,15 +1,13 @@
 package com.fikir.Presenter
 
-import android.content.Intent
 import android.util.Log
 import com.fikir.Model.Firebase.RegisterAcc
-import com.fikir.UI.Activities.Main
-import com.fikir.UI.Activities.Register
+import com.fikir.UI.Activities.RegisterActivity
 
 class RegisterPresenter {
-    lateinit var register: Register
-    fun init(register: Register){
-        this.register=register
+    lateinit var registerActivity: RegisterActivity
+    fun init(registerActivity: RegisterActivity){
+        this.registerActivity=registerActivity
     }
     fun register(nickname:String,email:String,pass1:String,pass2:String){
         email.trim()
@@ -17,25 +15,25 @@ class RegisterPresenter {
         Log.d("gelen2",pass1)
         Log.d("gelen3",pass2)
         if(email.length==0) {
-            register.emptymail()
+            registerActivity.emptymail()
         }
         else if(pass2.length==0){
-            register.emptypass2()
+            registerActivity.emptypass2()
         }
         else if(pass1.length==0) {
-                register.emptypass1()
+                registerActivity.emptypass1()
         }
         else if(pass1!=pass2){
-            register.passdontmatch()
+            registerActivity.passdontmatch()
         }
         else if(pass1.length<8 && pass2.length<8){
-            register.passshort()
+            registerActivity.passshort()
         }
         else if(nickname.length==0){
-            register.emptynickname()
+            registerActivity.emptynickname()
         }
         else if(nickname.length<8){
-            register.nicknameshort()
+            registerActivity.nicknameshort()
         }
         else{
             Log.d("gelenler","oldu")

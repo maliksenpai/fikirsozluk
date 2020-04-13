@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.R
-import com.fikir.UI.Activities.ReadPost
+import com.fikir.UI.Activities.ReadPostActivity
 
 class ProfileAdapter (val liste:MutableList<String>): RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,6 +21,11 @@ class ProfileAdapter (val liste:MutableList<String>): RecyclerView.Adapter<Profi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.subject.setText(liste[position])
+        holder.subject.setOnClickListener {
+            var intent=Intent(holder.itemView.context,ReadPostActivity::class.java)
+            intent.putExtra("subject",liste[position])
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

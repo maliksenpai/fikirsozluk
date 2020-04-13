@@ -1,25 +1,22 @@
 package com.fikir.Model.Firebase
 
-import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Adapters.PostAdapter
 import com.fikir.Model.Adapters.ProfileAdapter
-import com.fikir.Model.Adapters.SearchAdapter
 import com.fikir.Model.Module.PostModule
 import com.fikir.Model.Singletons.DatabaseSingleton
 import com.fikir.R
-import com.fikir.UI.Activities.Main
+import com.fikir.UI.Activities.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_main2.view.*
 import java.util.*
 
 class MainMenu {
@@ -80,7 +77,7 @@ class MainMenu {
         }
         database?.addValueEventListener(listener)
     }
-    fun listsubject(recyclerView: RecyclerView,main: Main){
+    fun listsubject(recyclerView: RecyclerView, mainActivity: MainActivity){
         var list:MutableList<String> = arrayListOf()
         val database = DatabaseSingleton().getInstance()?.child("konular")
         val listener = object : ValueEventListener {
@@ -94,25 +91,26 @@ class MainMenu {
                     list.add(it.child("konu").getValue().toString())
                 }
 //                Log.d("gelen9",list[0])
-                recyclerView.layoutManager=LinearLayoutManager(main.applicationContext)
+                recyclerView.layoutManager=LinearLayoutManager(mainActivity.applicationContext)
+                recyclerView.addItemDecoration(DividerItemDecoration(mainActivity.applicationContext,DividerItemDecoration.VERTICAL))
+                recyclerView.setHasFixedSize(true)
                 recyclerView.adapter=PostAdapter(list)
             }
         }
         database?.addListenerForSingleValueEvent(listener)
     }
-    fun profildetails(main:Main){
+    fun profildetails(mainActivity:MainActivity){
         val firebase = DatabaseSingleton().getInstance()?.child("kullanicilar")
         var mail= FirebaseAuth.getInstance().currentUser?.email.toString()
-        var nickname=""
         var list:MutableList<String> = arrayListOf()
-        var recyclerView=main.findViewById<RecyclerView>(R.id.profilelist)
+        var recyclerView=mainActivity.findViewById<RecyclerView>(R.id.profilelist)
         val listener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
             override fun onDataChange(p0: DataSnapshot) {
                 p0.children.forEach {
                     if (mail.equals(it.child("eposta").getValue().toString())) {
-                        main.findViewById<TextView>(R.id.profilnick).setText(it.child("nick").getValue().toString())
+                        mainActivity.findViewById<TextView>(R.id.profilnick).setText(it.child("nick").getValue().toString())
 
                         var postcount=firebase?.child(it.key.toString())?.child("postlar")
                         val listenerpostcount = object : ValueEventListener { //epostasıyla profilini bulduğumuz hesabın içine giriyoruz
@@ -120,7 +118,7 @@ class MainMenu {
                             }
 
                             override fun onDataChange(p1: DataSnapshot) {
-                                main.findViewById<TextView>(R.id.profilpostsayisisayac).setText(p1.childrenCount.toString()) //profil ekranına post sayısını yazar
+                                mainActivity.findViewById<TextView>(R.id.profilpostsayisisayac).setText(p1.childrenCount.toString()) //profil ekranına post sayısını yazar
                                 Log.d("gelenmain", p1.childrenCount.toString())
                             }
                         }
@@ -132,7 +130,7 @@ class MainMenu {
                             }
 
                             override fun onDataChange(p2: DataSnapshot) {
-                                main.findViewById<TextView>(R.id.profiltakipcisayac).setText(p2.childrenCount.toString())
+                                mainActivity.findViewById<TextView>(R.id.profiltakipcisayac).setText(p2.childrenCount.toString())
                             }
 
                         }
@@ -144,7 +142,7 @@ class MainMenu {
                             }
 
                             override fun onDataChange(p3: DataSnapshot) {
-                                main.findViewById<TextView>(R.id.profiltakipedilensayac).setText(p3.childrenCount.toString())
+                                mainActivity.findViewById<TextView>(R.id.profiltakipedilensayac).setText(p3.childrenCount.toString())
                             }
 
                         }
@@ -173,7 +171,8 @@ class MainMenu {
                                     }
                                     i++
                                 }
-                                recyclerView.layoutManager=LinearLayoutManager(main.applicationContext)
+                                recyclerView.layoutManager=LinearLayoutManager(mainActivity.applicationContext)
+                                recyclerView.addItemDecoration(DividerItemDecoration(mainActivity.applicationContext,DividerItemDecoration.VERTICAL))
                                 recyclerView.adapter= ProfileAdapter(list)
                             }
                         }

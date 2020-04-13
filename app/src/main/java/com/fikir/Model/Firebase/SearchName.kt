@@ -1,12 +1,13 @@
 package com.fikir.Model.Firebase
 
 import android.util.Log
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Adapters.SearchAdapter
-import com.fikir.Model.Module.ReadModule
+import com.fikir.Model.Module.SearchModule
 import com.fikir.Model.Singletons.DatabaseSingleton
-import com.fikir.UI.Activities.Main
+import com.fikir.UI.Activities.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,10 +15,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class SearchName {
-    fun names(liste:RecyclerView,text:String,count:Int,search:Main){
+    fun names(liste:RecyclerView,text:String,count:Int,search:MainActivity){
         val firebaseread = DatabaseSingleton().getInstance()?.child("kullanicilar")
         var nicks:MutableList<String> = arrayListOf()
-        var list:MutableList<String> = arrayListOf()
+        var list:MutableList<SearchModule> = arrayListOf()
         var i=0
         var n=0
         SearchAdapter(list).cleardata()
@@ -47,10 +48,12 @@ class SearchName {
                         i++
                     }
                     if(i==n && !(it.child("nick").getValue().toString().equals(nickname))){
-                        list.add(it.child("nick").getValue().toString())
+                       // list.add(it.child("nick").getValue().toString())
+                        list.add(SearchModule(it.child("nick").getValue().toString(),it.child("status").getValue().toString()))
                     }
                 }
                 liste.layoutManager=LinearLayoutManager(search)
+                liste.addItemDecoration(DividerItemDecoration(search.applicationContext, DividerItemDecoration.VERTICAL))
                 liste.adapter=SearchAdapter(list)
             }
 

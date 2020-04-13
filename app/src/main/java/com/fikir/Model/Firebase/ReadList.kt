@@ -1,22 +1,21 @@
 package com.fikir.Model.Firebase
 
 import android.util.Log
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Adapters.ReadAdapter
 import com.fikir.Model.Module.PostModule
 import com.fikir.Model.Module.ReadModule
 import com.fikir.Model.Singletons.DatabaseSingleton
-import com.fikir.UI.Activities.ReadPost
+import com.fikir.UI.Activities.ReadPostActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ReadList {
-    fun postlist(subject:String, recyclerview:RecyclerView, post: ReadPost){
+    fun postlist(subject:String, recyclerview:RecyclerView, postActivity: ReadPostActivity){
         val firebaseread = DatabaseSingleton().getInstance()?.child("postlar")
         var list:MutableList<ReadModule> = arrayListOf()
         ReadAdapter(list).cleardata()
@@ -33,7 +32,8 @@ class ReadList {
                         Log.d("gelenpost",list.get(0).time)
                     }
                 }
-                recyclerview.layoutManager= LinearLayoutManager(post)
+                recyclerview.layoutManager= LinearLayoutManager(postActivity)
+                recyclerview.addItemDecoration(DividerItemDecoration(postActivity.applicationContext,DividerItemDecoration.VERTICAL))
                 recyclerview.adapter= ReadAdapter(list)
             }
             override fun onCancelled(p0: DatabaseError) {

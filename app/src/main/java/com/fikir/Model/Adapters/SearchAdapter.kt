@@ -1,18 +1,20 @@
 package com.fikir.Model.Adapters
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.fikir.Model.Module.SearchModule
 import com.fikir.R
-import com.fikir.UI.Activities.ReadPost
-import com.fikir.UI.Activities.SearchProfile
+import com.fikir.UI.Activities.SearchProfileActivity
 
-class SearchAdapter(val liste:MutableList<String>): RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter(val liste:MutableList<SearchModule>): RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view= LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item,parent,false)
+        val view= LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item_3,parent,false)
         return ViewHolder(view)
     }
 
@@ -24,16 +26,24 @@ class SearchAdapter(val liste:MutableList<String>): RecyclerView.Adapter<SearchA
         liste.clear()
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.subject.setText(liste[position])
-        holder.subject.setOnClickListener {
-            var intent = Intent(holder.itemView.context,SearchProfile::class.java)
-            intent.putExtra("nickname",liste[position])
+        holder.usernick.setText(liste[position].nick)
+        if(liste[position].status=="0"){
+            holder.userstatus.setBackgroundColor(R.color.offlinestatus)
+        }
+        else{
+            holder.userstatus.setBackgroundColor(R.color.onlinestatus)
+        }
+        holder.usernick.setOnClickListener {
+            var intent = Intent(holder.itemView.context,SearchProfileActivity::class.java)
+            intent.putExtra("nickname",liste[position].nick)
             holder.itemView.context.startActivity(intent)
         }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val subject=itemView.findViewById<TextView>(R.id.listpostsubject)
+        val usernick=itemView.findViewById<TextView>(R.id.listusersnick)
+        var userstatus=itemView.findViewById<ImageView>(R.id.listusersstatus)
     }
 }

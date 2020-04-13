@@ -4,16 +4,16 @@ import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Firebase.MainMenu
-import com.fikir.UI.Activities.Login
-import com.fikir.UI.Activities.Main
+import com.fikir.UI.Activities.LoginActivity
+import com.fikir.UI.Activities.MainActivity
 import com.fikir.UI.Fragments.NewPostFragment
 import com.google.firebase.auth.FirebaseAuth
 
 class MainPresenter {
-     lateinit var main: Main
+     lateinit var mainActivity: MainActivity
     lateinit var postfragment:NewPostFragment
-    fun init(main: Main){
-        this.main=main
+    fun init(mainActivity: MainActivity){
+        this.mainActivity=mainActivity
     }
     fun initpostfragment(postFragment: NewPostFragment){
         this.postfragment=postFragment
@@ -22,16 +22,16 @@ class MainPresenter {
         var auth =FirebaseAuth.getInstance()
         var account=auth.currentUser
         if(account==null){
-            main.startActivity(Intent(main.applicationContext, Login::class.java))
+            mainActivity.startActivity(Intent(mainActivity.applicationContext, LoginActivity::class.java))
         }
         else{
             Log.d("gelen","asda")
         }
     }
     fun showpostfragmentpresenter(){
-        main.showpostfragmentmain()
+        mainActivity.showpostfragmentmain()
     }
     fun postlist(recyclerView: RecyclerView){
-        MainMenu().listsubject(recyclerView,main)
+        MainMenu().listsubject(recyclerView,mainActivity)
     }
 }

@@ -10,7 +10,7 @@ import com.fikir.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class Register : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class Register : AppCompatActivity() {
                 findViewById<TextInputEditText>(R.id.registermailtext).text.toString(),
                 findViewById<TextInputEditText>(R.id.registerpass1text).text.toString(),
                 findViewById<TextInputEditText>(R.id.registerpass2text).text.toString())
-            startActivity(Intent(applicationContext, Main::class.java))}
+            startActivity(Intent(applicationContext, MainActivity::class.java))}
     }
     fun passdontmatch(){
         findViewById<TextInputLayout>(R.id.registerpass1layout).error="Sifre uyusmuyor"

@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.fikir.Model.Firebase.ReadList
+import com.fikir.Model.Firebase.Status
 import com.fikir.Presenter.ReadPresenter
 import com.fikir.R
 import com.fikir.UI.Fragments.ReadPostNewPost
@@ -16,12 +17,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
-class ReadPost : AppCompatActivity() {
+class ReadPostActivity : AppCompatActivity() {
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_post)
+        Status().setonline(FirebaseAuth.getInstance().currentUser?.email.toString())
         val zaman: Date =Date()
         Log.d("gelenpost",zaman.toString())
         val subject=intent.getStringExtra("subject")
@@ -44,5 +46,12 @@ class ReadPost : AppCompatActivity() {
             ReadList().postlist(subject,findViewById<RecyclerView>(R.id.readpostlist),this)
         }
     }
-
+    override fun onStop() {
+        Status().setoffline(FirebaseAuth.getInstance().currentUser?.email.toString())
+        super.onStop()
+    }
+    override fun onResume() {
+        Status().setonline(FirebaseAuth.getInstance().currentUser?.email.toString())
+        super.onResume()
+    }
 }

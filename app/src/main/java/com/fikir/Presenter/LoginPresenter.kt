@@ -3,47 +3,46 @@ package com.fikir.Presenter
 import android.content.Intent
 import android.util.Log
 import com.fikir.Model.Firebase.LoginAcc
-import com.fikir.UI.Activities.Login
-import com.fikir.UI.Activities.Main
-import com.fikir.UI.Activities.Register
-import kotlin.math.log
+import com.fikir.UI.Activities.LoginActivity
+import com.fikir.UI.Activities.MainActivity
+import com.fikir.UI.Activities.RegisterActivity
 
 class LoginPresenter {
-    var login: Login = Login()
-    fun init(login: Login){
-        this.login=login
+    var loginActivity: LoginActivity = LoginActivity()
+    fun init(loginActivity: LoginActivity){
+        this.loginActivity=loginActivity
     }
     fun kayitol(){
-        login.startActivity(Intent(login.applicationContext, Register::class.java))
+        loginActivity.startActivity(Intent(loginActivity.applicationContext, RegisterActivity::class.java))
     }
     fun login(mail:String,password:String){
         if(mail.length==0){
-            login.emptymail()
+            loginActivity.emptymail()
         }
         else if(password.length==0){
-            login.emptypass()
+            loginActivity.emptypass()
         }
         else if(password.length<8){
-            login.shortpass()
+            loginActivity.shortpass()
         }
         else if(mail.length<8){
-            login.shortmail()
+            loginActivity.shortmail()
         }
         else{
-            LoginAcc().login(mail,password,login)
+            LoginAcc().login(mail,password,loginActivity)
         }
     }
 
     fun logincomplete(){
-        var intent:Intent=Intent(login.applicationContext,Main::class.java)
+        var intent:Intent=Intent(loginActivity.applicationContext,MainActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        login?.startActivity(intent)
-        //login?.applicationContext?.startActivity(Intent(login, Main::class.java))
+        loginActivity?.startActivity(intent)
+        //loginActivity?.applicationContext?.startActivity(Intent(loginActivity, MainActivity::class.java))
         Log.d("gelenlogin","girdi")
     }
 
     fun loginfail(){
-        login.loginerror()
+        loginActivity.loginerror()
         Log.d("gelenlogin","olmadı")
     }
 }
